@@ -6,6 +6,7 @@ export const HeaderStyle =styled.section`
     position: fixed;
     top: 0;
     z-index: 100;
+    background-color: #fff;
 
     ul{
         display: flex;

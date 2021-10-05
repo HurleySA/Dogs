@@ -1,7 +1,13 @@
 import { LoginCreat} from "./style"
+import dogLogin from "../../Assets/login.jpg"
+import { Link } from "react-router-dom"
+import { useState } from "react"
 export function LoginCreate(){
-   
+
+
     return(
-        <h1>Login Create</h1>
+        <LoginCreat>
+            <h1>Criar</h1>
+        </LoginCreat>
     )
 }

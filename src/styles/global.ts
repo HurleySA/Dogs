@@ -27,7 +27,8 @@ export const GlobalStyle = createGlobalStyle`
     }
     
     .container {
-        max-width: 1220px;
+        max-width: 76rem;
         margin: 0 auto;
     }
+
 `
