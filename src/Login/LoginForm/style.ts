@@ -4,9 +4,12 @@ export const ContainerForm = styled.section`
     display: grid;
     grid-template-columns: 1fr 1fr;    
     gap: 3rem;
+    min-height: 100vh;
+
 
     .wrapper{
         margin-top: 10rem;
+        animation: slidein .3s;
     }
 
     .wrapper h1{
@@ -29,20 +32,6 @@ export const ContainerForm = styled.section`
             
     }
 
-
-    button {
-        cursor: pointer;
-        padding: 1rem 3rem;
-        font-size: 1rem;
-        font-weight: 500;
-        border: none;
-        border-radius: .4rem;
-        background: #fb1;
-        color: #764701;
-        box-sizing: border-box;
-        margin-bottom: 3rem;
-        
-    }
 
     .wrapper span{
         font-size: 1.5rem;
@@ -78,8 +67,60 @@ export const ContainerForm = styled.section`
     .wrapper div p{
         font-size: 1.4rem;
         color: #333;
+        margin-bottom: 2rem;
     }
 
+    @keyframes slidein {
+        from {
+            margin-left: -10px;
+            opacity: 0;
+        }
+
+        to {
+            margin-left: 0px;
+            opacity: 1;
+        }
+    }
+
+    .notify{
+        color: #f31;
+        margin-bottom: .5rem;
+        animation: slidein .3s;
+
+    }
+
+`
+export const LoginButton = styled.button`
+    cursor: pointer;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: .4rem;
+    background: #fb1;
+    color: #764701;
+    box-sizing: border-box;
+    margin-bottom: 3rem;
+
+    &:hover{
+        box-shadow:  0 0 .5rem #fb1;         
+    }
+`
+export const CadastrarButton = styled.button`
+    cursor: pointer;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: .4rem;
+    background: #fb1;
+    color: #764701;
+    box-sizing: border-box;
+    margin-bottom: 3rem;
+
+    &:hover{
+        box-shadow:  0 0 .5rem #fb1;         
+    }
 `
 
 export const LabelForm = styled.label`

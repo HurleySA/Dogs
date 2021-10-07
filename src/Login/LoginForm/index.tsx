@@ -1,12 +1,14 @@
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import { api } from "../../services/api"
-import { InputForm, ContainerForm, LabelForm } from "./style";
+import { toast } from 'react-toastify';
+import { InputForm, ContainerForm, LabelForm, LoginButton, CadastrarButton } from "./style";
 import login  from "../../Assets/login.jpg"
 
 export function LoginForm(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [blurUsername, setBlurUsername] = useState(false);
+    const [blurPassword, setBlurPassword] = useState(false);
 
     const handleSubmit = (event: FormEvent) =>{
         event.preventDefault();
@@ -18,21 +20,32 @@ export function LoginForm(){
             body: JSON.stringify({username, password})
         })
         .then(res => {
-            res.ok ? alert("Animal Cadastrado") : alert("Animal não Cadastrado")
+            res.ok ? toast("Animal Cadastrado") : toast.error("Animal não Cadastrado")
 
             return res.json()
         })
         .then(json => console.log(json))
         .catch((erro) =>{
-            alert("Animal não Cadastrado")
+            toast.error("Animal não Cadastrado")
             return erro
         }
         )
     }
 
+    const handleBlurUser = (event: React.FocusEvent<HTMLInputElement>) => {
+        (event.target.value === "") ? setBlurUsername(true) : setBlurUsername(false);
+        
+    }
+
+    const handleBlurPassword = (event: React.FocusEvent<HTMLInputElement>) => {
+        (event.target.value === "") ? setBlurPassword(true) : setBlurPassword(false);
+    }
+
     return(
         <ContainerForm>
-            <img src={login} alt="Login Dog"/>
+            <div className="back">
+                <img src={login} alt="" />
+            </div>
             <div className="wrapper">
                 <h1>Login</h1>
                 <form action="" onSubmit={handleSubmit}>
@@ -45,12 +58,13 @@ export function LoginForm(){
                             id="username"
                             name="username"
                             value={username}
-                            onChange={({target}) => setUsername(target.value)}   
+                            onChange={({target}) => setUsername(target.value)}
+                            onBlur={( event ) => handleBlurUser(event)}
                         />
                     </div>
-
+                    {blurUsername && <p className="notify" >Preencha um usuário.</p> }
                     <div>
-                        <LabelForm htmlFor="username">
+                        <LabelForm htmlFor="password">
                             Senha
                         </LabelForm>
                         <InputForm 
@@ -59,12 +73,14 @@ export function LoginForm(){
                         name="password"
                         value={password}
                         onChange={({target}) => setPassword(target.value)}    
+                        onBlur={( event ) => handleBlurPassword(event)}
                     />
                     </div>
+                    {blurPassword && <p className="notify">Preencha uma senha.</p> }
                     
                     
 
-                    <button>Entrar</button>
+                    <LoginButton>Entrar</LoginButton>
                 </form>
 
                 <span>
@@ -74,7 +90,7 @@ export function LoginForm(){
                 <div className="cadastro">
                     <h2>Cadastre-se</h2>
                     <p>Ainda não possui conta? Cadastre-se no site.</p>
-                    <button> <Link to="criar">Cadastrar</Link></button>
+                    <CadastrarButton> <Link to="criar">Cadastrar</Link></CadastrarButton>
                    
                 </div>
             </div>
