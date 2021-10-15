@@ -1,49 +1,29 @@
-import { useState, FormEvent } from "react"
+import { FormEvent } from "react"
 import { toast } from 'react-toastify';
+import useForm from "../../../hooks/useForm";
 import { InputForm, ContainerForm, LabelForm, LoginButton } from "../LoginForm/style"
-import login  from "../../Assets/login.jpg"
+import login  from "../../../Assets/login.jpg"
 export function LoginCreate(){
 
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [blurUsername, setBlurUsername] = useState(false);
-    const [blurEmail, setBlurEmail] = useState(false);
-    const [blurPassword, setBlurPassword] = useState(false);
+    const username = useForm();
+    const password= useForm();
+    const email= useForm();
 
     const handleSubmit = (event: FormEvent) =>{
         event.preventDefault();
-        fetch("https://dogsapi.origamid.dev/json/jwt-auth/v1/token", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({username, password})
-        })
-        .then(res => {
-            res.ok ? toast("Animal Cadastrado") : toast.error("Animal não Cadastrado")
-
-            return res.json()
-        })
-        .then(json => console.log(json))
-        .catch((erro) =>{
-            toast.error("Animal não Cadastrado")
-            return erro
-        }
-        )
     }
 
     const handleBlurUser = (event: React.FocusEvent<HTMLInputElement>) => {
-        (event.target.value === "") ? setBlurUsername(true) : setBlurUsername(false);
+        if (event.target.value === "") toast.error("Preencha um usuário.");
         
     }
 
     const handleBlurPassword = (event: React.FocusEvent<HTMLInputElement>) => {
-        (event.target.value === "") ? setBlurPassword(true) : setBlurPassword(false);
+        if (event.target.value === "") toast.error("Preencha uma senha.");
     }
 
     const handleBlurEmail = (event: React.FocusEvent<HTMLInputElement>) => {
-        (event.target.value === "") ? setBlurEmail(true) : setBlurEmail(false);
+        if (event.target.value === "") toast.error("Preencha um email.");
     }
 
     return(
@@ -62,12 +42,11 @@ export function LoginCreate(){
                             type="text" 
                             id="username"
                             name="username"
-                            value={username}
-                            onChange={({target}) => setUsername(target.value)}
+                            value={username.value}
+                            onChange={({target}) => username.onChange(target.value)}
                             onBlur={( event ) => handleBlurUser(event)}
                         />
                     </div>
-                    {blurUsername && <p className="notify" >Preencha um usuário.</p> }
                     <div>
                         <LabelForm htmlFor="email">
                             Email
@@ -76,12 +55,11 @@ export function LoginCreate(){
                             type="text" 
                             id="email"
                             name="email"
-                            value={email}
-                            onChange={({target}) => setEmail(target.value)}
+                            value={email.value}
+                            onChange={({target}) => email.onChange(target.value)}
                             onBlur={( event ) => handleBlurEmail(event)}
                         />
                     </div>
-                    {blurEmail && <p className="notify" >Preencha um usuário.</p> }
                     <div>
                         <LabelForm htmlFor="password">
                             Senha
@@ -90,15 +68,11 @@ export function LoginCreate(){
                         type="password" 
                         id="password"
                         name="password"
-                        value={password}
-                        onChange={({target}) => setPassword(target.value)}    
+                        value={password.value}
+                        onChange={({target}) => password.onChange(target.value)}    
                         onBlur={( event ) => handleBlurPassword(event)}
                     />
                     </div>
-                    {blurPassword && <p className="notify">Preencha uma senha.</p> }
-                    
-                    
-
                     <LoginButton>Entrar</LoginButton>
                 </form>
             </div>
