@@ -1,11 +1,17 @@
 import styled from "styled-components";
-
 export const ContainerForm = styled.section`
     display: grid;
-    grid-template-columns: 1fr 1fr;    
+    grid-template-columns: 1fr 1fr 1fr 1fr;   
+    justify-content: space-around;
     gap: 3rem;
     min-height: 100vh;
 
+  
+
+    .back{
+        grid-column: 2;
+        width: 650px;
+    }
 
     .wrapper{
         margin-top: 10rem;
@@ -88,6 +94,32 @@ export const ContainerForm = styled.section`
         animation: slidein .3s;
 
     }
+    @media (max-width: 1401px){
+ 
+        &{
+            grid-template-columns:30px 1fr 1fr; 
+        }
+
+        .back{
+            width: 650px;
+        }
+
+    @media (max-width: 1200px){
+       
+        &{
+            grid-template-columns:40px 1fr; 
+            justify-content: center;
+        }
+        .wrapper{
+            grid-column: 2;
+        }
+
+        .back{
+            display: none;
+        }
+    }
+   
+ }
 
 `
 export const LoginButton = styled.button`
@@ -135,6 +167,24 @@ export const InputForm = styled.input`
     border-radius: 5px;
     display: block;
     margin: .5rem 0rem 1rem ;
+
+    @media (max-width: 1401px){
+        &{
+            padding: 1rem 15rem 1rem 1rem;
+        }
+    }
+
+    @media (max-width: 1260px){
+        &{
+            padding: 1rem 10rem 1rem 1rem;
+        }
+    }
+
+    @media (max-width: 1200px){
+        &{
+            padding: 1rem 20rem 1rem 1rem;
+        }
+    }
 
     &:focus, &:hover{
         border: 1px solid #fb1;

@@ -21,8 +21,6 @@ export function Home(){
         .then(json => {
             setData(json)})
         .catch(error => console.log(error))
-
-       
     },[])
 
 

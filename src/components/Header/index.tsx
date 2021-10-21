@@ -20,10 +20,11 @@ export function Header(){
                     <li> 
                         <Link to="/conta">
                             <ButtonLogin> 
-                                <span>{context.data.email}</span>  
+                                <span>{context.data.nome}</span>  
                                 <img src={usuario} alt="" />
                             </ButtonLogin> 
                         </Link>
+                        <button onClick={context.userLoggout}>Sair</button>
                     </li> :
                     <li> 
                     <Link to="/login">

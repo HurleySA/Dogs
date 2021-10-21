@@ -23,8 +23,8 @@ export const HeaderStyle =styled.section`
 export const ButtonLogin =styled.div`
     display: flex;
     width: 7rem;
-    justify-content: space-between;
-    font-size: 1rem;
+    justify-content: space-around;
+    font-size: 1.2rem;
     
     
 `

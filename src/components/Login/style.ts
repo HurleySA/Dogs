@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const LoginStyle = styled.section`
-    margin-top: 4rem;
+    padding-top: 5rem;
     width: 100%;
     height: 100vh;
 `

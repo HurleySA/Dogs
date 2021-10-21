@@ -3,14 +3,24 @@ import { toast } from 'react-toastify';
 import useForm from "../../../hooks/useForm";
 import { InputForm, ContainerForm, LabelForm, LoginButton } from "../LoginForm/style"
 import login  from "../../../Assets/login.jpg"
+import { USER_POST } from "../../../api";
 export function LoginCreate(){
 
     const username = useForm();
     const password= useForm();
     const email= useForm();
 
-    const handleSubmit = (event: FormEvent) =>{
+    const handleSubmit = async (event: FormEvent) =>{
         event.preventDefault();
+        const {url, options} = USER_POST({
+            username: username.value,
+            email: email.value,
+            password: password.value
+        })
+
+        const response = await fetch(url, options);
+        const json = await response.json();
+        console.log(json);
     }
 
     const handleBlurUser = (event: React.FocusEvent<HTMLInputElement>) => {

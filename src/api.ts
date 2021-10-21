@@ -5,6 +5,12 @@ interface tokenBodyProps{
     password: string,
 }
 
+interface bodyProps{
+  username: string,
+  email:string
+  password: string,
+}
+
 export function TOKEN_POST(body: tokenBodyProps) {
   return {
     url: API_URL + '/jwt-auth/v1/token',
@@ -41,11 +47,8 @@ export function TOKEN_VALIDATE_POST(token: string) {
     },
   };
 }
-/* 
 
-
-
-export function USER_POST(body) {
+export function USER_POST(body: bodyProps) {
   return {
     url: API_URL + '/api/user',
     options: {
@@ -57,6 +60,12 @@ export function USER_POST(body) {
     },
   };
 }
+
+/* 
+
+
+
+
 
 export function PHOTO_POST(formData, token) {
   return {

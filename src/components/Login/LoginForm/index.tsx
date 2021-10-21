@@ -70,7 +70,7 @@ export function LoginForm(){
                     
                     
 
-                    <LoginButton>Entrar</LoginButton>
+                    {context.loading ? <LoginButton disabled>Carregando</LoginButton> : <LoginButton>Entrar</LoginButton>}
                 </form>
 
                 <span>
