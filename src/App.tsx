@@ -22,7 +22,7 @@ function App() {
 
             <Route path="/" element={<Home/>} />
             <Route path="/login/*" element={<Login/>} />
-            <Route path="/conta" element={<Conta/> } />
+            <Route path="/conta/*" element={<Conta/> } />
             <Route path="/*" element={<NotFound/>} />
         </Routes>
         <ToastContainer autoClose={2000} /> 

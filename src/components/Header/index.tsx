@@ -17,14 +17,11 @@ export function Header(){
                         </Link> 
                     </li>
                     {context.data ? 
-                    <li> 
-                        <Link to="/conta">
-                            <ButtonLogin> 
-                                <span>{context.data.nome}</span>  
-                                <img src={usuario} alt="" />
-                            </ButtonLogin> 
-                        </Link>
-                        <button onClick={context.userLoggout}>Sair</button>
+                     <li> 
+                         <ButtonLogin> 
+                             <span>{context.data.nome}</span>  
+                             <button onClick={context.userLoggout}>Sair</button>
+                         </ButtonLogin> 
                     </li> :
                     <li> 
                     <Link to="/login">
@@ -33,7 +30,7 @@ export function Header(){
                             <img src={usuario} alt="" />
                         </ButtonLogin> 
                     </Link>
-                </li>
+                    </li>
                     }
                     
                 </ul>

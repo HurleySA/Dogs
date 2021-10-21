@@ -4,11 +4,13 @@ import useForm from "../../../hooks/useForm";
 import { InputForm, ContainerForm, LabelForm, LoginButton } from "../LoginForm/style"
 import login  from "../../../Assets/login.jpg"
 import { USER_POST } from "../../../api";
+import { useNavigate } from "react-router";
 export function LoginCreate(){
 
     const username = useForm();
     const password= useForm();
     const email= useForm();
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: FormEvent) =>{
         event.preventDefault();
@@ -17,10 +19,17 @@ export function LoginCreate(){
             email: email.value,
             password: password.value
         })
-
-        const response = await fetch(url, options);
-        const json = await response.json();
-        console.log(json);
+        const responsePost = await fetch(url,options)
+        if(responsePost.ok){
+            toast("Animal Cadastrado")
+            navigate('/login')
+        }else{
+            toast.error("Usuário ou Email já cadastrado")
+            username.setValue('');
+            password.setValue('');
+            email.setValue('');
+        }
+        
     }
 
     const handleBlurUser = (event: React.FocusEvent<HTMLInputElement>) => {

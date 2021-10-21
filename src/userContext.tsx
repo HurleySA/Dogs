@@ -28,7 +28,6 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    console.log();
     
     const getUser = React.useCallback(async (token: string) => {
       const {url, options} = USER_GET(token);
@@ -38,13 +37,13 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
       setLogin(true);
     },[])
 
-    const userLoggout = React.useCallback(async () =>{
+    const userLoggout = React.useCallback( () =>{
       setData(null);
       setError(null);
       setLoading(false);
       setLogin(false);
       window.localStorage.removeItem('token');
-      (window.location.href !== 'http://localhost:3000' && navigate("/login"));
+      navigate('/login');
     },[navigate])
 
     useEffect(()=>{
@@ -65,13 +64,15 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
          }finally{
           setLoading(false);
          }
+        }else{
+          setLogin(false);
         }
       }
      
       autologin();
       
       
-  },[getUser,setLoading])
+  },[])
 
     const userLogin = async (username: string, password:string) =>{
       try{

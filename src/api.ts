@@ -61,6 +61,19 @@ export function USER_POST(body: bodyProps) {
   };
 }
 
+export function PASSWORD_LOST(body: {username: string}) {
+  return {
+    url: API_URL + '/api/password/lost',
+    options: {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    },
+  };
+}
+
 /* 
 
 
@@ -126,18 +139,7 @@ export function PHOTO_DELETE(id) {
   };
 }
 
-export function PASSWORD_LOST(body) {
-  return {
-    url: API_URL + '/api/password/lost',
-    options: {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    },
-  };
-}
+
 
 export function PASSWORD_RESET(body) {
   return {

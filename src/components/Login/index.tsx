@@ -13,7 +13,7 @@ import { LoginStyle } from "./style"
 export function Login(){
     const context = useContext(userContext);
 
-    if(context.login) return <Navigate to="/conta"/>
+    if(context.login ) return <Navigate to="/conta"/>
     return(
         <LoginStyle>  
 

@@ -1,5 +1,6 @@
 import { FormEvent } from "react"
 import { toast } from 'react-toastify';
+import { PASSWORD_LOST } from "../../../api";
 import { InputForm, ContainerForm, LabelForm, LoginButton } from "../LoginForm/style"
 import login  from "../../../Assets/login.jpg"
 import useForm from "../../../hooks/useForm";
@@ -10,12 +11,17 @@ export function LoginPasswordLost(){
     
     const dado = useForm();
 
-    const handleSubmit = (event: FormEvent) =>{
+
+    const handleSubmit = async (event: FormEvent) =>{
         event.preventDefault();
         if(dado.value === ""){
             toast.error("Digite seu Usuário ou Email.")
         }else{
-            toast(dado);
+            const {url, options} = PASSWORD_LOST({username: dado.value});   
+            const response = await fetch(url,options)
+            console.log(response)
+            const json = await response.json();
+            console.log(json)
         }
     }
     
