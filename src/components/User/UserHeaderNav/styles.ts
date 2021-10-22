@@ -8,6 +8,11 @@ export const HeaderNavContainer = styled.nav`
     &.active{
         display: flex;
         flex-direction: column;
+        grid-column: 2;
+    }
+
+    &.active.showMenu{
+        display: none;
     }
 
     a, button{
@@ -33,6 +38,7 @@ export const HeaderNavContainer = styled.nav`
 
 `
 export const BurguerMenu = styled.button`
+
     display: flex;
     align-items: center;
     justify-content: center;

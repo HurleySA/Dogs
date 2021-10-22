@@ -4,7 +4,7 @@ import UserHeaderNav from "../UserHeaderNav";
 import { HeaderContainer } from "./styles";
 
 
-export default function UserHeader() {
+export  function UserHeader() {
     const [title, setTitle] = useState('Minha Conta')
     const {pathname} = useLocation();
 
