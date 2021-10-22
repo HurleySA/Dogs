@@ -7,7 +7,6 @@ import { HeaderContainer } from "./styles";
 export default function UserHeader() {
     const [title, setTitle] = useState('Minha Conta')
     const {pathname} = useLocation();
-    console.log(pathname);
 
     if(pathname === '/conta' && title !== 'Minha Conta') setTitle('Minha Conta');
     if(pathname === '/conta/estatisticas' && title !== 'Estatística') setTitle('Estatística');

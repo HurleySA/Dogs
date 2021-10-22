@@ -1,19 +1,37 @@
 import { NavLink } from "react-router-dom";
-import { HeaderNavContainer } from "./styles";
+import { HeaderNavContainer, BurguerMenu } from "./styles";
 import {ReactComponent as FeedLogo} from '../../../Assets/feed.svg'
 import {ReactComponent as EstatisticaLogo} from '../../../Assets/estatisticas.svg'
 import {ReactComponent as AdicionarLogo} from '../../../Assets/adicionar.svg'
 import {ReactComponent as SairLogo} from '../../../Assets/sair.svg'
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { userContext } from "../../../userContext";
 export default function UserHeaderNav() {
     const context = useContext(userContext);
+    const [mobile, setMobile] = useState<null | boolean>(null);
+    const [menuMobileActive, setMenuMobileActive] = useState(false);
+
+    useEffect(() => {
+        const changeMatch = () =>{
+            const {matches} = window.matchMedia("(max-width: 1100px)")
+            setMobile(matches);
+        }
+
+        window.addEventListener('resize', changeMatch);
+        return () => {
+            window.removeEventListener('resize', changeMatch);
+        }
+    }, [])
+   
     return (
-        <HeaderNavContainer>
-            <NavLink to="/conta" end><FeedLogo/></NavLink>
-            <NavLink to="/conta/estatisticas"><EstatisticaLogo/></NavLink>
-            <NavLink to="/conta/adicionar"><AdicionarLogo/></NavLink>
-            <button onClick={context.userLoggout} ><SairLogo/></button>
-        </HeaderNavContainer>
+        <>
+            {mobile && <BurguerMenu className={menuMobileActive ? "active" : ""} onClick={() => setMenuMobileActive(!menuMobileActive)}></BurguerMenu>}
+            <HeaderNavContainer className={mobile ? "active" : ""}>
+                    <NavLink to="/conta" end><FeedLogo/></NavLink>
+                    <NavLink to="/conta/estatisticas"><EstatisticaLogo/></NavLink>
+                    <NavLink to="/conta/adicionar"><AdicionarLogo/></NavLink>
+                    <button onClick={context.userLoggout} ><SairLogo/></button>
+            </HeaderNavContainer>
+        </>
     )
 }
