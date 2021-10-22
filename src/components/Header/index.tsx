@@ -19,9 +19,10 @@ export function Header(){
                     {context.data ? 
                      <li> 
                          <ButtonLogin> 
-                             <span>{context.data.nome}</span>  
-                             <button onClick={context.userLoggout}>Sair</button>
+                             <span><Link to="/conta">{context.data.nome}</Link></span>  
+                             <button onClick={context.userLoggout}>Sair</button>   
                          </ButtonLogin> 
+                          
                     </li> :
                     <li> 
                     <Link to="/login">

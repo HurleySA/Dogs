@@ -8,7 +8,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 import { GlobalStyle } from "./styles/global";
 import { UserStorage } from "./userContext";
-import { Conta } from "./components/Conta";
+import { User } from "./components/User";
 
 
 
@@ -22,7 +22,7 @@ function App() {
 
             <Route path="/" element={<Home/>} />
             <Route path="/login/*" element={<Login/>} />
-            <Route path="/conta/*" element={<Conta/> } />
+            <Route path="/conta/*" element={<User/> } />
             <Route path="/*" element={<NotFound/>} />
         </Routes>
         <ToastContainer autoClose={2000} /> 
