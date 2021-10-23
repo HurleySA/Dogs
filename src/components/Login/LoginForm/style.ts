@@ -161,7 +161,8 @@ export const LabelForm = styled.label`
 
 export const InputForm = styled.input`
     outline: none;
-    padding: 1rem 20rem 1rem 1rem;
+    width: 100%;
+    padding: 1rem;
     background-color: #eee;
     border: 1px solid #eee;
     border-radius: 5px;
