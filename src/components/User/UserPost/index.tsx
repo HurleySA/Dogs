@@ -3,6 +3,14 @@ import { InputForm, LabelForm, LoginButton } from "../../Login/LoginForm/style";
 import { ContainerPost } from "./style";
 import { toast } from 'react-toastify';
 import { FormEvent, useState } from "react";
+
+interface rawProps {
+    name:string,
+    lastModified: number,
+    webkitRelativePath: string
+    size: number,
+    type: string,
+}
 export  function UserPost() {
     const username = useForm();
     const peso = useForm();
@@ -11,7 +19,8 @@ export  function UserPost() {
 
     const handleSubmit = (event: FormEvent) =>{
         event.preventDefault();
-        console.log({username, peso, idade});
+        
+        
     }
 
     const handleBlurUser = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -23,8 +32,9 @@ export  function UserPost() {
         if (event.target.value === "") toast.error("Preencha um valor válido.");  
     }
 
-    const handleBlurImg = (event: React.FocusEvent<HTMLInputElement>) => {
-        (event.target.files && console.log(event.target.files[0]));
+    const handleBlurImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+       
+        
     }
     return (
         <ContainerPost>
@@ -68,7 +78,7 @@ export  function UserPost() {
                         <input 
                             type="file"   
                             className="postPhoneInput"  
-                            onBlur={( event ) => handleBlurImg(event)}
+                            onChange={( event ) => handleBlurImg(event)}
                         />
                       
                         

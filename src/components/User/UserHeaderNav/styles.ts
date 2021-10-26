@@ -6,33 +6,37 @@ export const HeaderNavContainer = styled.nav`
     gap: 1.2rem;
 
     &.active{
-        display: flex;
-        flex-direction: column;
-        grid-column: 2;
+        display: none;
     }
 
     &.active.showMenu{
         display: none;
     }
+    &.active.showMenu{
+        display: block;
+        position: absolute;
+        top: 230px;
+        right: 0px; 
+        border-radius: 5px;
+    }
+
+  
 
     a, button{
+
         background-color: #eee;
-        border-radius: 5px;
+        
         padding: 1rem;
         border: none;
         cursor: pointer;
-    }
-    a:hover{
-        box-shadow:  0 0 .3rem #fb1;      
-    }
-
-    a.active, button.active{
-        border: 1px solid #fb1;
-        color: #fb1;
-        box-shadow:  0 0 .5rem #fb1;      
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
     }
 
-    a.active svg > *{
+
+    a:hover svg > *{
         fill: #fb1;
     }
 
@@ -48,7 +52,8 @@ export const BurguerMenu = styled.button`
     border-radius: 5px;
     border: none;
     cursor: pointer;
-   
+
+    
     &:after{
         content: '';
         display: block;
@@ -59,6 +64,7 @@ export const BurguerMenu = styled.button`
         text-align: center;
         box-shadow: 0 6px #fb1, 0 -6px #fb1;
         transition:  .3s;
+       
     }
 
     &:hover{

@@ -12,25 +12,41 @@ export default function UserHeaderNav() {
     const [menuMobileActive, setMenuMobileActive] = useState<null | boolean>(null);
 
     useEffect(() => {
+
         const changeMatch = () =>{
             const {matches} = window.matchMedia("(max-width: 900px)")
             setMobile(matches);
         }
+        changeMatch();
 
         window.addEventListener('resize', changeMatch);
+        
         return () => {
             window.removeEventListener('resize', changeMatch);
+            
         }
     }, [])
    
     return (
         <>
-            {mobile && <BurguerMenu className={menuMobileActive ? "active" : ""} onClick={() => setMenuMobileActive(!menuMobileActive)}></BurguerMenu>}
+            {mobile && <BurguerMenu className={mobile ? "active" : ""} onClick={() => setMenuMobileActive(!menuMobileActive)}></BurguerMenu>}
             <HeaderNavContainer className={`${mobile ? "active" : ""} ${menuMobileActive ? "showMenu" : ""}`}>
-                    <NavLink to="/conta" end><FeedLogo/></NavLink>
-                    <NavLink to="/conta/estatisticas"><EstatisticaLogo/></NavLink>
-                    <NavLink to="/conta/adicionar"><AdicionarLogo/></NavLink>
-                    <button onClick={context.userLoggout} ><SairLogo/></button>
+                    <NavLink to="/conta" onClick={() => setMenuMobileActive(!menuMobileActive)} end>
+                        <FeedLogo/>
+                        {mobile && 'Minhas fotos'}
+                        </NavLink>
+                    <NavLink to="/conta/estatisticas" onClick={() => setMenuMobileActive(!menuMobileActive)}>
+                        <EstatisticaLogo/>
+                        {mobile && 'Estatísticas'}
+                        </NavLink>
+                    <NavLink to="/conta/adicionar" onClick={() => setMenuMobileActive(!menuMobileActive)}>
+                        <AdicionarLogo/>
+                        {mobile && 'Adicionar Foto'}
+                        </NavLink>
+                    <button onClick={context.userLoggout} >
+                        <SairLogo/>
+                        {mobile && 'Sair'}
+                        </button>
             </HeaderNavContainer>
         </>
     )
