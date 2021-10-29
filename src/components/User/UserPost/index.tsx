@@ -2,24 +2,27 @@ import useForm from "../../../hooks/useForm";
 import { InputForm, LabelForm, LoginButton } from "../../Login/LoginForm/style";
 import { ContainerPost } from "./style";
 import { toast } from 'react-toastify';
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
+import useFormNumber from "../../../hooks/useFormNumber";
+import { userContext } from "../../../userContext";
 
-interface rawProps {
-    name:string,
-    lastModified: number,
-    webkitRelativePath: string
-    size: number,
-    type: string,
+interface imgProps {
+    raw: File,
 }
 export  function UserPost() {
-    const username = useForm();
-    const peso = useForm();
-    const idade = useForm();
-    const [img, setImg] = useState({});
+    const nome = useForm();
+    const peso = useFormNumber();
+    const idade = useFormNumber();
+    const [img, setImg] = useState({} as imgProps);
 
-    const handleSubmit = (event: FormEvent) =>{
+    const {postPhoto} = useContext(userContext);
+    const handleSubmit = async (event: FormEvent) =>{
         event.preventDefault();
-        
+        if(!nome.value || !peso.value || !idade.value || !img ){
+            toast.error("Há dados faltantes.")
+        }else{
+            postPhoto(img, nome, peso, idade)         
+        } 
         
     }
 
@@ -32,26 +35,27 @@ export  function UserPost() {
         if (event.target.value === "") toast.error("Preencha um valor válido.");  
     }
 
-    const handleBlurImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-       
-        
+    const handleChanceImg = (event: React.ChangeEvent<HTMLInputElement>) => {   
+        (event.target.files && setImg({
+           raw:event.target.files[0],
+       }))
     }
     return (
         <ContainerPost>
             <div className="containerPost">
-                <form action="" onSubmit={handleSubmit}>
-                        <LabelForm htmlFor="username">
+                <form action="" onSubmit={handleSubmit} id="form">
+                        <LabelForm htmlFor="nome">
                             Nome
                         </LabelForm>
                         <InputForm 
                             type="text" 
-                            id="username"
-                            name="username"
-                            value={username.value  }
-                            onChange={({target}) => username.onChange(target.value)}
+                            id="nome"
+                            name="nome"
+                            value={nome.value }
+                            onChange={({target}) => nome.onChange(target.value)}
                             onBlur={( event ) => handleBlurUser(event)}
                         />
-                        <LabelForm htmlFor="username">
+                        <LabelForm htmlFor="nome">
                             Peso
                         </LabelForm>
                         <InputForm 
@@ -59,11 +63,11 @@ export  function UserPost() {
                             id="peso"
                             name="peso"
                             min="0"
-                            onChange={({target}) => peso.onChange(target.value)}
+                            onChange={({target}) => peso.onChange(+target.value)}
                             onBlur={( event ) => handleBlurPeso(event)}
                            
                         />
-                        <LabelForm htmlFor="username">
+                        <LabelForm htmlFor="nome">
                             Idade
                         </LabelForm>
                         <InputForm 
@@ -71,14 +75,14 @@ export  function UserPost() {
                             id="idade"
                             name="idade"
                             min="0"
-                            onChange={({target}) => idade.onChange(target.value)}
+                            onChange={({target}) => idade.onChange(+target.value)}
                             onBlur={( event ) => handleBlurPeso(event)}
                            
                         />
                         <input 
                             type="file"   
                             className="postPhoneInput"  
-                            onChange={( event ) => handleBlurImg(event)}
+                            onChange={( event ) => handleChanceImg(event)}
                         />
                       
                         

@@ -9,6 +9,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { GlobalStyle } from "./styles/global";
 import { UserStorage } from "./userContext";
 import { User } from "./components/User";
+import { Footer } from "./components/Footer";
 
 
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/conta/*" element={<User/> } />
             <Route path="/*" element={<NotFound/>} />
         </Routes>
+        <Footer/>
         <ToastContainer autoClose={2000} /> 
       </UserStorage>
     </BrowserRouter>

@@ -1,34 +1,25 @@
-import { FormEvent } from "react"
+import { FormEvent, useContext } from "react"
 import { toast } from 'react-toastify';
 import useForm from "../../../hooks/useForm";
 import { InputForm, ContainerForm, LabelForm, LoginButton } from "../LoginForm/style"
 import login  from "../../../Assets/login.jpg"
-import { USER_POST } from "../../../api";
-import { useNavigate } from "react-router";
+import { userContext } from "../../../userContext";
 export function LoginCreate(){
+
 
     const username = useForm();
     const password= useForm();
     const email= useForm();
-    const navigate = useNavigate();
+    const {userCreate} = useContext(userContext);
 
     const handleSubmit = async (event: FormEvent) =>{
         event.preventDefault();
-        const {url, options} = USER_POST({
-            username: username.value,
-            email: email.value,
-            password: password.value
-        })
-        const responsePost = await fetch(url,options)
-        if(responsePost.ok){
-            toast("Animal Cadastrado")
-            navigate('/login')
+        if(!username.value || !password.value || !email.value ){
+            toast.error("Digite os dados para cadastro.")
         }else{
-            toast.error("Usuário ou Email já cadastrado")
-            username.setValue('');
-            password.setValue('');
-            email.setValue('');
+            userCreate(username,password, email);
         }
+        
         
     }
 

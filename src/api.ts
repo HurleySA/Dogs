@@ -61,6 +61,19 @@ export function USER_POST(body: bodyProps) {
   };
 }
 
+export function PHOTO_POST(formData: FormData, token:string) {
+  return {
+    url: API_URL + '/api/photo',
+    options: {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+      body: formData,
+    },
+  };
+}
+
 export function PASSWORD_LOST(body: {username: string}) {
   return {
     url: API_URL + '/api/password/lost',
@@ -73,6 +86,8 @@ export function PASSWORD_LOST(body: {username: string}) {
     },
   };
 }
+
+
 
 /* 
 

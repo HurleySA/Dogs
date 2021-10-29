@@ -15,11 +15,10 @@ export function LoginForm(){
         event.preventDefault();
         const userValue = username.value;
         const passwordValue = password.value;
-        if(userValue === "" && passwordValue === ""){
+        if(!userValue || !passwordValue){
             toast.error("Digite seu Usuário e Senha.")
         }else{
             context.userLogin(userValue, passwordValue);
-         
         }
         
     }
@@ -35,6 +34,7 @@ export function LoginForm(){
 
     return(
         <ContainerForm>
+            
             <div className="back">
                 <img src={login} alt="" />
             </div>
