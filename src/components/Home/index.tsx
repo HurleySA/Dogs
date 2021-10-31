@@ -18,13 +18,12 @@ export function Home(){
     const context = useContext(userContext)
     const [feed, setFeed] = useState<photoProps[]>([]);
     useEffect(()=>{
-        console.log(context.data)
         fetch("https://dogsapi.origamid.dev/json/api/photo/?_page=1&_total=6&user=0")
         .then(res => res.json())
         .then(json => {
             setFeed(json)})
         .catch(error => console.log(error))
-    },[])
+    },[feed])
     return(
         <HomeStyle className="container">
             {context.loading ? <div>CARREGANDO</div> : <ul>

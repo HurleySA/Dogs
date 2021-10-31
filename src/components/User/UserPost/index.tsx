@@ -6,7 +6,9 @@ import { FormEvent, useContext, useState } from "react";
 import { userContext } from "../../../userContext";
 
 interface imgProps {
+    preview: string,
     raw: File,
+    
 }
 export  function UserPost() {
     const nome = useForm('');
@@ -36,7 +38,8 @@ export  function UserPost() {
 
     const handleChanceImg = (event: React.ChangeEvent<HTMLInputElement>) => {   
         (event.target.files && setImg({
-           raw:event.target.files[0],
+            preview: URL.createObjectURL(event.target.files[0]),
+            raw:event.target.files[0],
        }))
     }
     return (
@@ -84,14 +87,12 @@ export  function UserPost() {
                             onChange={( event ) => handleChanceImg(event)}
                         />
                       
-                        
-                    
-                    
-                    
-
                 <LoginButton>Entrar</LoginButton>    
                 </form>
+                
             </div>
+
+            {img.raw && <div><img src={img.preview} alt="" /></div>}
 
         </ContainerPost>
     )
