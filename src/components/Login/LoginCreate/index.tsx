@@ -7,9 +7,9 @@ import { userContext } from "../../../userContext";
 export function LoginCreate(){
 
 
-    const username = useForm();
-    const password= useForm();
-    const email= useForm();
+    const username = useForm('');
+    const password= useForm('');
+    const email= useForm('');
     const {userCreate} = useContext(userContext);
 
     const handleSubmit = async (event: FormEvent) =>{

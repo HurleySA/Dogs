@@ -1,5 +1,6 @@
 import { HomeStyle } from "./style"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { userContext } from "../../userContext";
 export function Home(){
     interface photoProps{
         id: number,
@@ -14,23 +15,23 @@ export function Home(){
     
     }
    
-    const [data, setData] = useState<photoProps[]>([]);
+    const context = useContext(userContext)
+    const [feed, setFeed] = useState<photoProps[]>([]);
     useEffect(()=>{
-        fetch("https://dogsapi.origamid.dev/json/api/photo")
+        console.log(context.data)
+        fetch("https://dogsapi.origamid.dev/json/api/photo/?_page=1&_total=6&user=0")
         .then(res => res.json())
         .then(json => {
-            setData(json)})
+            setFeed(json)})
         .catch(error => console.log(error))
     },[])
-
-
     return(
         <HomeStyle className="container">
-            <ul>
-            {data.map((photo) =>  {
+            {context.loading ? <div>CARREGANDO</div> : <ul>
+            {feed.map((photo) =>  {
                return <li key={photo.id}> <img src={photo.src} alt="" /> </li>
             })}
-            </ul>
+            </ul>}
             
         </HomeStyle>
     )

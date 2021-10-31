@@ -9,7 +9,7 @@ import useForm from "../../../hooks/useForm";
 export function LoginPasswordLost(){
    
     
-    const dado = useForm();
+    const dado = useForm('');
 
 
     const handleSubmit = async (event: FormEvent) =>{

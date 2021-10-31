@@ -4,20 +4,15 @@ import { toast } from 'react-toastify';
 import { useNavigate } from "react-router";
 
 interface formProps{
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-  onChange: (newValue: string) => void;
-}
-interface formNumberProps{
-  value: number;
-  setValue: React.Dispatch<React.SetStateAction<number>>;
-  onChange: (newValue: number) => void;
+  value: string | number;
+  setValue: React.Dispatch<React.SetStateAction<string | number>>;
+  onChange: (newValue: string | number) => void;
 }
 interface imgProps {
   raw: File,
 }
 interface childrenProps {
-  userLogin: (username: string, password: string) => Promise<void>,
+  userLogin: (username: string | number, password: string | number) => Promise<void>,
   data: {
     email: string,
     id: number,
@@ -28,12 +23,13 @@ interface childrenProps {
   loading: boolean,
   userLoggout: () => void,
   userCreate: (username: formProps, password: formProps, email: formProps) => Promise<void>,
-  postPhoto: (img: imgProps, nome: formProps, peso: formNumberProps, idade: formNumberProps) => Promise<void>
+  postPhoto: (img: imgProps, nome: formProps, peso: formProps, idade: formProps) => Promise<void>
 }
 
 interface ProviderProps {
     children: ReactNode;
   }
+
 
 
 export const userContext = React.createContext<childrenProps>({} as childrenProps);
@@ -83,11 +79,15 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
         }else{
           setLogin(false);
         }
-      }    
+      }  
+      const loadFeed = async () => {
+        
+      }  
       autologin();
   },[getUser, userLoggout])
 
-    const userLogin = async (username: string, password:string) =>{
+
+    const userLogin = async (username: string | number, password:string | number) =>{
       try{
         setError(null);
         setLoading(true);
@@ -135,12 +135,17 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
     }
     }
 
-    const postPhoto = async (img: imgProps, nome: formProps, peso: formNumberProps, idade:formNumberProps) =>{
+    const postPhoto = async (img: imgProps, nome: formProps, peso: formProps, idade:formProps) =>{
       const formData = new FormData();
-      formData.append('img', img.raw);
-      formData.append('nome', nome.value);
-      formData.append('peso', `${peso.value}`);
-      formData.append('idade',  `${idade.value}`);
+      const raw = img.raw;
+      const nomeValue = nome.value;
+      const pesoValue =  `${peso.value}`;
+      const idadeValue = `${idade.value}`;
+      if(typeof nomeValue === 'string')      formData.append('nome', nomeValue);
+      formData.append('img', raw);
+
+      formData.append('peso',pesoValue);
+      formData.append('idade', idadeValue);
       
 
       const token = window.localStorage.getItem('token');
@@ -152,7 +157,12 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
       } 
       
     }
+
     
+  
+    
+   
+      
     
 
     return <userContext.Provider value={{userLogin, data, login, loading, userLoggout, userCreate, postPhoto }}>

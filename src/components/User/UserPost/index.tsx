@@ -3,16 +3,15 @@ import { InputForm, LabelForm, LoginButton } from "../../Login/LoginForm/style";
 import { ContainerPost } from "./style";
 import { toast } from 'react-toastify';
 import { FormEvent, useContext, useState } from "react";
-import useFormNumber from "../../../hooks/useFormNumber";
 import { userContext } from "../../../userContext";
 
 interface imgProps {
     raw: File,
 }
 export  function UserPost() {
-    const nome = useForm();
-    const peso = useFormNumber();
-    const idade = useFormNumber();
+    const nome = useForm('');
+    const peso = useForm(0);
+    const idade = useForm(0);
     const [img, setImg] = useState({} as imgProps);
 
     const {postPhoto} = useContext(userContext);

@@ -7,8 +7,8 @@ import login  from "../../../Assets/login.jpg"
 import { userContext } from "../../../userContext"
 
 export function LoginForm(){
-    const username = useForm();
-    const password= useForm();
+    const username = useForm('');
+    const password= useForm('');
     const context = useContext(userContext)
 
     const handleSubmit = async (event: FormEvent) =>{

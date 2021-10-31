@@ -1,14 +1,14 @@
 export const API_URL = 'https://dogsapi.origamid.dev/json';
 
 interface tokenBodyProps{
-    username: string,
-    password: string,
+    username: string | number,
+    password: string | number,
 }
 
 interface bodyProps{
-  username: string,
-  email:string
-  password: string,
+  username: string | number,
+  email:string| number,
+  password: string | number,
 }
 
 export function TOKEN_POST(body: tokenBodyProps) {
@@ -74,7 +74,7 @@ export function PHOTO_POST(formData: FormData, token:string) {
   };
 }
 
-export function PASSWORD_LOST(body: {username: string}) {
+export function PASSWORD_LOST(body: {username: string | number}) {
   return {
     url: API_URL + '/api/password/lost',
     options: {
@@ -95,18 +95,7 @@ export function PASSWORD_LOST(body: {username: string}) {
 
 
 
-export function PHOTO_POST(formData, token) {
-  return {
-    url: API_URL + '/api/photo',
-    options: {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-      body: formData,
-    },
-  };
-}
+
 
 export function PHOTOS_GET({ page, total, user }) {
   return {
