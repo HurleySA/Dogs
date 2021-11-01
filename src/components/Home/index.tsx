@@ -1,6 +1,7 @@
 import { HomeStyle } from "./style"
 import { useContext, useEffect, useState } from "react"
 import { userContext } from "../../userContext";
+import Loading from "../Loading";
 export function Home(){
     interface photoProps{
         id: number,
@@ -23,10 +24,10 @@ export function Home(){
         .then(json => {
             setFeed(json)})
         .catch(error => console.log(error))
-    },[feed])
+    },[])
     return(
         <HomeStyle className="container">
-            {context.loading ? <div>CARREGANDO</div> : <ul>
+            {context.loading ? <Loading/> : <ul>
             {feed.map((photo) =>  {
                return <li key={photo.id}> <img src={photo.src} alt="" /> </li>
             })}

@@ -1,0 +1,63 @@
+[1mdiff --git a/src/Assets/a70c82b8ae7b29113a9c074d4f4febbb.jpg b/src/Assets/a70c82b8ae7b29113a9c074d4f4febbb.jpg[m
+[1mdeleted file mode 100644[m
+[1mindex f9f8666..0000000[m
+Binary files a/src/Assets/a70c82b8ae7b29113a9c074d4f4febbb.jpg and /dev/null differ
+[1mdiff --git a/src/components/NotFound/styles.ts b/src/components/NotFound/styles.ts[m
+[1mindex b28f718..e453d68 100644[m
+[1m--- a/src/components/NotFound/styles.ts[m
+[1m+++ b/src/components/NotFound/styles.ts[m
+[36m@@ -3,6 +3,6 @@[m [mimport styled from "styled-components";[m
+ export const NotFoundStyle = styled.section`[m
+     padding-top: 8rem;[m
+     width: 100vh;[m
+[31m-    height: 100vh;[m
+[32m+[m[32m    min-height: 100vh;[m
+     background-color: #121212;[m
+ `[m
+\ No newline at end of file[m
+[1mdiff --git a/src/components/User/index.tsx b/src/components/User/index.tsx[m
+[1mindex 617066b..21fdcc2 100644[m
+[1m--- a/src/components/User/index.tsx[m
+[1m+++ b/src/components/User/index.tsx[m
+[36m@@ -10,10 +10,10 @@[m [mimport {UserPost} from "./UserPost";[m
+ [m
+ export function User(){[m
+ [m
+[31m-    const {login } = useContext(userContext);[m
+[32m+[m[32m    const {login, data } = useContext(userContext);[m
+     if(login === null) return null;[m
+     else if(login === false) return<Navigate to="/login"/>;[m
+[31m-[m
+[32m+[m[32m    console.log(data)[m
+     return([m
+       [m
+         <ContainerConta className="container">[m
+[1mdiff --git a/src/userContext.tsx b/src/userContext.tsx[m
+[1mindex a450943..8d3cee4 100644[m
+[1m--- a/src/userContext.tsx[m
+[1m+++ b/src/userContext.tsx[m
+[36m@@ -68,20 +68,18 @@[m [mexport const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{[m
+           const {url, options} = TOKEN_VALIDATE_POST(token);[m
+           const response = await fetch(url, options);[m
+           if(!response.ok) throw new Error('Token inválido')[m
+[31m-        [m
+[31m-          await getUser(token)[m
+[32m+[m[32m          else setLogin(true);[m
+[32m+[m[32m          await getUser(token);[m
+          }[m
+          catch(err){[m
+[31m-          userLoggout();[m
+[32m+[m[32m          setLogin(false);[m
+[32m+[m[32m          console.log(err)[m
+          }finally{[m
+           setLoading(false);[m
+          }[m
+         }else{[m
+           setLogin(false);[m
+         }[m
+[31m-      }  [m
+[31m-      const loadFeed = async () => {[m
+[31m-        [m
+       }  [m
+       autologin();[m
+   },[getUser, userLoggout])[m

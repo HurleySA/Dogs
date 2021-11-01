@@ -68,20 +68,18 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
           const {url, options} = TOKEN_VALIDATE_POST(token);
           const response = await fetch(url, options);
           if(!response.ok) throw new Error('Token inválido')
-        
-          await getUser(token)
+          else setLogin(true);
+          await getUser(token);
          }
          catch(err){
-          userLoggout();
+          setLogin(false);
+          console.log(err)
          }finally{
           setLoading(false);
          }
         }else{
           setLogin(false);
         }
-      }  
-      const loadFeed = async () => {
-        
       }  
       autologin();
   },[getUser, userLoggout])
@@ -157,13 +155,6 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
       } 
       
     }
-
-    
-  
-    
-   
-      
-    
 
     return <userContext.Provider value={{userLogin, data, login, loading, userLoggout, userCreate, postPhoto }}>
             {children}
