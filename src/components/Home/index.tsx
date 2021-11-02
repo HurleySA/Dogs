@@ -24,12 +24,12 @@ export function Home(){
         .then(json => {
             setFeed(json)})
         .catch(error => console.log(error))
-    },[])
+    },[setFeed])
     return(
         <HomeStyle className="container">
             {context.loading ? <Loading/> : <ul>
             {feed.map((photo) =>  {
-               return <li key={photo.id}> <img src={photo.src} alt="" /> </li>
+               return <li key={photo.id}> <img src={photo.src} alt="" />  </li>
             })}
             </ul>}
             

@@ -79,6 +79,7 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
          }
         }else{
           setLogin(false);
+          
         }
       }  
       autologin();
