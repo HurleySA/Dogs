@@ -87,6 +87,21 @@ export function PASSWORD_LOST(body: {username: string | number}) {
   };
 }
 
+export function PHOTOS_GET({ page, total, user }: {page: number, total: number, user:string| undefined}) :{
+  url:string,
+  options:{
+    method:string,
+    cache: RequestCache ,
+  }
+} {
+  return {
+    url: `${API_URL}/api/photo/?_page=${page}&_total=${total}&_user=${user}`,
+    options: {
+      method: 'GET',
+      cache: 'no-store',
+    },
+  };
+}
 
 
 /* 
@@ -97,15 +112,7 @@ export function PASSWORD_LOST(body: {username: string | number}) {
 
 
 
-export function PHOTOS_GET({ page, total, user }) {
-  return {
-    url: `${API_URL}/api/photo/?_page=${page}&_total=${total}&_user=${user}`,
-    options: {
-      method: 'GET',
-      cache: 'no-store',
-    },
-  };
-}
+
 
 export function PHOTO_GET(id) {
   return {
