@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 import visualizacao from "../../Assets/visualizacao.svg"
 import { PHOTOS_GET } from "../../api";
-import { Itens } from "./styles";
+import { Itens, Item } from "./styles";
  interface photoProps{
     id: number,
     author: string,
@@ -41,10 +41,10 @@ export default function Feed({page, total, user}: {page:number, total:number, us
     return (
             <Itens>
             {feed.map((photo) =>  {
-               return <li key={photo.id} >  
+               return <Item key={photo.id} >  
                 <img src={photo.src} alt="" /> 
                 <span> <img src={visualizacao} alt="" />{photo.acessos}</span> 
-               </li>
+               </Item>
             })}
             </Itens>
     )

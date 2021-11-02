@@ -14,14 +14,11 @@ import { LoginStyle } from "./style"
 export function Login(){
     
     const {loading,login} = useContext(userContext);
-    console.log(loading)
-    console.log(login)
     if(loading ) return <Loading/>;
     if(login) return <Navigate to="/conta"/>
 
     return(
-        <LoginStyle>  
-
+        <LoginStyle> 
             <Routes>
                 <Route path="/" element={<LoginForm/>} />
                 <Route path="/criar" element={<LoginCreate/>} />

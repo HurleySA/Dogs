@@ -4,25 +4,31 @@ export const Itens = styled.ul`
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: 10px;
-     li{
+     
+   
+
+    `
+     export const Item = styled.li`
+
+    &{
         display: grid;
         justify-items: center;
         align-items: center;
         
         }
-    li:hover{
+    &:hover{
         cursor: pointer;
     }
-     li:nth-child(2){
+     &:nth-child(2){
         grid-column: 2/4;
         grid-row: span 2;
     }
 
-    li img {
+    & img {
         border-radius: 5px;
         grid-area: 1/1;
     }
-    li span {
+    & span {
         display: none;
         font-size: 1.5rem;
         color: white;
@@ -30,7 +36,7 @@ export const Itens = styled.ul`
     }
 
 
-    li:hover span {
+    &:hover span {
         display: block;
         animation: slidein 1s forwards;
         background-color: rgba(0,0,0,0.8);
@@ -49,4 +55,6 @@ export const Itens = styled.ul`
             opacity: 1;
         }
     }
-    `
+
+     
+     `
