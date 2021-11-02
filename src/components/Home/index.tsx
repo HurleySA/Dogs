@@ -2,6 +2,7 @@ import { HomeStyle } from "./style"
 import { useContext, useEffect, useState } from "react"
 import { userContext } from "../../userContext";
 import Loading from "../Loading";
+import visualizacao from "../../Assets/visualizacao.svg"
 export function Home(){
     interface photoProps{
         id: number,
@@ -29,7 +30,7 @@ export function Home(){
         <HomeStyle className="container">
             {context.loading ? <Loading/> : <ul>
             {feed.map((photo) =>  {
-               return <li key={photo.id}> <img src={photo.src} alt="" />  </li>
+               return <li key={photo.id}> <img src={photo.src} alt="" /> <span> <img src={visualizacao} alt="" />{photo.acessos}</span>  </li>
             })}
             </ul>}
             
