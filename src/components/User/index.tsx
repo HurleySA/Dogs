@@ -25,7 +25,7 @@ export function User(){
         <ContainerConta className="container">
               <UserHeader/>
               <Routes>
-                <Route path="/" element={<Feed page={1} total={6} user={data?.nome} /> } />
+                <Route path="/" element={<Feed page={1} total={6} user={data?.id} /> } />
                 <Route path="/estatisticas" element={<Estatistica/> } />
                 <Route path="/adicionar" element={<UserPost/>} />
                 

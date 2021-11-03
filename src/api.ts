@@ -87,7 +87,7 @@ export function PASSWORD_LOST(body: {username: string | number}) {
   };
 }
 
-export function PHOTOS_GET({ page, total, user }: {page: number, total: number, user:string| undefined}) :{
+export function PHOTOS_GET({ page, total, user }: {page: number, total: number, user:number| undefined}) :{
   url:string,
   options:{
     method:string,

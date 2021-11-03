@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { MouseEvent, MouseEventHandler, useEffect, useState } from "react"
 
 import visualizacao from "../../Assets/visualizacao.svg"
 import { PHOTOS_GET } from "../../api";
@@ -11,14 +11,14 @@ import { Itens, Item } from "./styles";
     src: string,
     peso: string,
     idade: string,
-    acessos: number,
+    acessos: string,
     total_comments: string,
 
 }
 
   
 
-export default function Feed({page, total, user}: {page:number, total:number, user:string | undefined}) {
+export default function Feed({page, total, user}: {page:number, total:number, user:number | undefined}) {
     const [feed, setFeed] = useState<photoProps[]>([]);
     useEffect(()=>{
         try{
@@ -37,15 +37,25 @@ export default function Feed({page, total, user}: {page:number, total:number, us
         }
         
     },[setFeed, page, total, user])
-  
-    return (
-            <Itens>
-            {feed.map((photo) =>  {
-               return <Item key={photo.id} >  
-                <img src={photo.src} alt="" /> 
-                <span> <img src={visualizacao} alt="" />{photo.acessos}</span> 
-               </Item>
-            })}
-            </Itens>
+    
+    const incrementaCurtida = (e: MouseEvent, photo:photoProps) => {
+        console.log(feed)
+        const newPhoto:photoProps = {...photo, acessos: `${+photo.acessos + 1}`}
+        const newFeed:photoProps[] = [...feed];
+        newFeed[feed.indexOf(photo)]= newPhoto
+        setFeed(newFeed)
+    }
+    
+    return ( 
+       <>
+        {feed.length > 0 ?  <Itens>
+        {feed.map((photo) =>  {
+           return <Item key={photo.id} onDoubleClick={(event) => incrementaCurtida(event,photo)}>  
+            <img src={photo.src} alt="" /> 
+            <span> <img src={visualizacao} alt="" />{photo.acessos}</span> 
+           </Item>
+        })}
+        </Itens>: <h1>Faça sua primeira postagem. </h1> }
+       </>
     )
 }
