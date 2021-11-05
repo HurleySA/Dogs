@@ -91,6 +91,9 @@ export const ModalItem = styled.div`
         bottom: 10px;
     
     }
+    .comentarios{
+        font-size: 1.2rem;
+    }
 
     .coment svg{
         background-color: transparent;

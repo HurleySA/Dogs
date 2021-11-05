@@ -1,7 +1,7 @@
 import { MouseEvent, useEffect, useState } from "react"
 
 import visualizacao from "../../Assets/visualizacao.svg"
-import { PHOTOS_GET } from "../../api";
+import { PHOTOS_GET, PHOTO_GET } from "../../api";
 import { Itens, Item } from "./styles";
 import FeedModal from "./FeedModal";
  interface photoProps{
@@ -40,8 +40,8 @@ export default function Feed({page, total, user}: {page:number, total:number, us
         
     },[setFeed, page, total, user])
     
-    const incrementaCurtida = (e: MouseEvent, photo:photoProps) => {
-        console.log(feed)
+    const incrementaCurtida = async (e: MouseEvent, photo:photoProps) => {
+        
         const newPhoto:photoProps = {...photo, acessos: `${+photo.acessos + 1}`}
         setModal(newPhoto);
     }
