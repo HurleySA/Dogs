@@ -38,7 +38,6 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
     const [data, setData] = useState(null);
     const [login, setLogin] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
     const navigate = useNavigate();
     
     const getUser = React.useCallback(async (token: string) => {
@@ -51,7 +50,6 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
 
     const userLoggout = React.useCallback( () =>{
       setData(null);
-      setError(null);
       setLoading(false);
       setLogin(false);
       window.localStorage.removeItem('token');
@@ -63,7 +61,6 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
         const token = window.localStorage.getItem('token');
         if(token) {
          try{
-          setError(null);
           setLoading(true);
           const {url, options} = TOKEN_VALIDATE_POST(token);
           const response = await fetch(url, options);
@@ -88,7 +85,6 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
 
     const userLogin = async (username: string | number, password:string | number) =>{
       try{
-        setError(null);
         setLoading(true);
         const {url, options} = TOKEN_POST({
           username,
@@ -109,7 +105,6 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
   
     const userCreate = async (username: formProps, password: formProps, email:formProps)=>{
      try{
-      setError(null);
       setLoading(true);
       const {url, options} = USER_POST({
         username: username.value,
@@ -142,17 +137,23 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
       const idadeValue = `${idade.value}`;
       if(typeof nomeValue === 'string')      formData.append('nome', nomeValue);
       formData.append('img', raw);
-
       formData.append('peso',pesoValue);
       formData.append('idade', idadeValue);
       
 
       const token = window.localStorage.getItem('token');
       if(token){
+        try{
+          setLoading(true);
           const {url, options} = PHOTO_POST(formData,token);
           const response = await fetch(url, options);
           if(!response.ok) throw new Error('Dados inválidos')
           navigate('/conta')
+        }catch(err){
+          console.log(err)
+        }finally{
+          setLoading(false);
+        }
       } 
       
     }
