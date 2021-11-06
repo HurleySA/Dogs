@@ -1,7 +1,7 @@
-import { MouseEvent, useEffect, useState } from "react"
+import { MouseEvent, useCallback, useEffect, useState } from "react"
 
 import visualizacao from "../../Assets/visualizacao.svg"
-import { PHOTOS_GET, PHOTO_GET } from "../../api";
+import { PHOTOS_GET } from "../../api";
 import { Itens, Item } from "./styles";
 import FeedModal from "./FeedModal";
  interface photoProps{
@@ -22,34 +22,36 @@ import FeedModal from "./FeedModal";
 export default function Feed({page, total, user}: {page:number, total:number, user:number | undefined}) {
     const [feed, setFeed] = useState<photoProps[]>([]);
     const [modal, setModal] = useState({} as photoProps)
-    useEffect(()=>{
-        try{
-            const atualizaFeed = async () =>{
+
+    const atualizaFeed = useCallback(async () =>{
     
-                const body = {page, total, user};  
-                const {url, options} = PHOTOS_GET(body);
-                const response = await fetch(url, options);
-                const json = await response.json();
-                setFeed(json);
-            }
+        const body = {page, total, user};  
+        const {url, options} = PHOTOS_GET(body);
+        const response = await fetch(url, options);
+        const json = await response.json();
+        setFeed(json);
+    },[setFeed, page, total, user])
+
+    useEffect(()=>{
+        try{       
             atualizaFeed();
         }
         catch(err){
             console.log(err)
         }
         
-    },[setFeed, page, total, user])
+    },[atualizaFeed])
     
     const incrementaCurtida = async (e: MouseEvent, photo:photoProps) => {
-        
-        const newPhoto:photoProps = {...photo, acessos: `${+photo.acessos + 1}`}
-        setModal(newPhoto);
+        await atualizaFeed();
+        setModal(photo);
     }
     
     return ( 
        <>
         {modal.id  && <FeedModal modal={modal} setModal={setModal} /> }
-        {feed.length > 0 ?  <Itens>
+        {feed.length > 0 ?  
+        <Itens>
         {feed.map((photo) =>  {
            return <Item key={photo.id} onDoubleClick={(event) => incrementaCurtida(event,photo)}>  
             <img src={photo.src} alt="" /> 

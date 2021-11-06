@@ -16,13 +16,21 @@ export  function UserPost() {
     const idade = useForm(0);
     const [img, setImg] = useState({} as imgProps);
 
+    const reset = ()=>{
+        nome.setValue('');
+        peso.setValue(0);
+        idade.setValue(0);
+        setImg({} as imgProps);
+  
+    }
     const {postPhoto} = useContext(userContext);
     const handleSubmit = async (event: FormEvent) =>{
         event.preventDefault();
         if(!nome.value || !peso.value || !idade.value || !img ){
             toast.error("Há dados faltantes.")
         }else{
-            postPhoto(img, nome, peso, idade)         
+            postPhoto(img, nome, peso, idade)   
+            reset();      
         } 
         
     }

@@ -55,6 +55,7 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
       window.localStorage.removeItem('token');
       navigate('/login');
     },[navigate])
+    
 
     useEffect(()=>{
       const autologin = async () => {

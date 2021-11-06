@@ -55,7 +55,6 @@ export default function FeedModal({modal, setModal}: feedModalProps) {
             const response = await fetch(url, options);
             const json = await response.json();
             setComents(json.comments)
-            console.log(json.comments)
             }
             loadComents();
         }
@@ -76,9 +75,9 @@ export default function FeedModal({modal, setModal}: feedModalProps) {
                         <h2>{modal.peso} kg</h2>
                         <h2>{modal.idade} anos</h2>
                     </div>
-                    <div className="comentarios">
+                    <div>
                         {coments.map((coment:comentsProps) => {
-                           return <li><strong>{coment.comment_author}: </strong> {coment.comment_content}</li>
+                           return <li key={coment.comment_ID}><strong> {coment.comment_author}: </strong> {coment.comment_content}</li>
                         })}
                     </div>
                     <div className="coment">

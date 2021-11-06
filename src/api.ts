@@ -11,6 +11,25 @@ interface bodyProps{
   password: string | number,
 }
 
+/* interface comentsProps{
+  comment_ID: string,
+  comment_agent: string,
+  comment_approved: string,
+  comment_author: string,
+  comment_author_IP: string,
+  comment_author_email: string,
+  comment_author_url: string,
+  comment_content: string,
+  comment_date: string,
+  comment_date_gmt: string,
+  comment_karma: string,
+  comment_parent: string,
+  comment_post_ID: string,
+  comment_type: string,
+  user_id: string,
+
+} */
+
 export function TOKEN_POST(body: tokenBodyProps) {
   return {
     url: API_URL + '/jwt-auth/v1/token',
@@ -117,19 +136,8 @@ export function PHOTO_GET(id:number) :{
     },
   };
 }
-/* 
 
-
-
-
-
-
-
-
-
-
-
-export function COMMENT_POST(id, body) {
+export function COMMENT_POST(id:number, body: string | number) {
   return {
     url: `${API_URL}/api/comment/${id}`,
     options: {
@@ -142,6 +150,19 @@ export function COMMENT_POST(id, body) {
     },
   };
 }
+
+export function STATS_GET() {
+  return {
+    url: API_URL + '/api/stats',
+    options: {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + window.localStorage.getItem('token'),
+      },
+    },
+  };
+}
+/* 
 
 export function PHOTO_DELETE(id) {
   return {
@@ -170,15 +191,5 @@ export function PASSWORD_RESET(body) {
   };
 }
 
-export function STATS_GET() {
-  return {
-    url: API_URL + '/api/stats',
-    options: {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + window.localStorage.getItem('token'),
-      },
-    },
-  };
-}
+
  */
