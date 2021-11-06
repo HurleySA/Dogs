@@ -41,12 +41,14 @@ interface comentsProps{
 interface feedModalProps{
     modal: photoProps,
     setModal: (photo: photoProps) => void,
+    atualizaFeed: () => Promise<void>,
 }
-export default function FeedModal({modal, setModal}: feedModalProps) {
+export default function FeedModal({modal, setModal, atualizaFeed}: feedModalProps) {
     const comentario = useForm('');
     const [coments, setComents] = useState<comentsProps[]>([]);
     const handleClick = () =>{
         setModal({} as photoProps);
+        atualizaFeed();
     }
 
     useEffect(() => {
@@ -61,7 +63,12 @@ export default function FeedModal({modal, setModal}: feedModalProps) {
         ,[modal.id])
 
     return (
-        <ModalStyle onClick={(e) => {if(e.target === e.currentTarget) setModal({} as photoProps)}}>   
+        <ModalStyle onClick={(e) => {
+            if(e.target === e.currentTarget) {setModal({} as photoProps);
+            atualizaFeed();
+        }
+            
+            }}>   
             <ModalItem>
                 <button className="fechar" onClick={handleClick}>X</button>
                 <img className="img" src={modal.src} alt="" />

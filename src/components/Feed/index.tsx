@@ -49,7 +49,7 @@ export default function Feed({page, total, user}: {page:number, total:number, us
     
     return ( 
        <>
-        {modal.id  && <FeedModal modal={modal} setModal={setModal} /> }
+        {modal.id  && <FeedModal modal={modal} setModal={setModal} atualizaFeed={atualizaFeed} /> }
         {feed.length > 0 ?  
         <Itens>
         {feed.map((photo) =>  {
