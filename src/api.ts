@@ -137,7 +137,7 @@ export function PHOTO_GET(id:number) :{
   };
 }
 
-export function COMMENT_POST(id:number, body: string | number) {
+export function COMMENT_POST(id:number, body: {comment: string | number}) {
   return {
     url: `${API_URL}/api/comment/${id}`,
     options: {

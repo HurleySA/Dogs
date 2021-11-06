@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { ModalItem, ModalStyle } from "./styles";
 import {ReactComponent as Enviar} from "../../../Assets/enviar.svg"
 import useForm from "../../../hooks/useForm";
-import { useEffect, useState } from "react";
-import { PHOTO_GET } from "../../../api";
+import { useCallback, useEffect, useState } from "react";
+import { COMMENT_POST, PHOTO_GET } from "../../../api";
 
 
 interface photoProps{
@@ -51,16 +51,31 @@ export default function FeedModal({modal, setModal, atualizaFeed}: feedModalProp
         atualizaFeed();
     }
 
-    useEffect(() => {
-            const loadComents = async () => {
-            const {url, options} = PHOTO_GET(modal.id);
+    const createComment = () =>{
+        const fetchComment = async()=>{
+            const {url, options} = COMMENT_POST(modal.id, {comment: comentario.value});
             const response = await fetch(url, options);
             const json = await response.json();
-            setComents(json.comments)
-            }
+            setComents([...coments, json])
+            comentario.setValue('');
+        }
+        fetchComment();
+        
+    }
+
+    const loadComents = useCallback(async () => {
+        const {url, options} = PHOTO_GET(modal.id);
+        const response = await fetch(url, options);
+        const json = await response.json();
+        setComents(json.comments)
+        console.log(...json.comments)
+        }, [modal.id])
+
+    useEffect(() => {     
             loadComents();
         }
-        ,[modal.id])
+        ,[loadComents])
+
 
     return (
         <ModalStyle onClick={(e) => {
@@ -93,7 +108,7 @@ export default function FeedModal({modal, setModal, atualizaFeed}: feedModalProp
                          value={comentario.value}
                          onChange={({target}) => comentario.onChange(target.value)}
                         />
-                        <button>
+                        <button onClick={createComment}>
                             <Enviar/>
                         </button>
                     </div>

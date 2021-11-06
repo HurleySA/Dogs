@@ -11,6 +11,7 @@ export  function Estatistica() {
         acessos: string 
     }
 
+
     const [stats, setStats] = useState<statsProps[]>([]);
     const [acessos, setAcessos] = useState(0);
     const [options, setOptions] = useState({
