@@ -1,39 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
-import { STATS_GET } from "../../../api";
+import { useContext, useEffect} from "react";
 import { Acess, Stats } from "./style";
 import { Chart } from "react-google-charts";
+import { userContext } from "../../../userContext";
+import Loading from "../../Loading";
 
 export  function Estatistica() {
-
-    interface statsProps {
-        id: number,
-        title: string,
-        acessos: string 
-    }
-
-
-    const [stats, setStats] = useState<statsProps[]>([]);
-    const [acessos, setAcessos] = useState(0);
-    const [options, setOptions] = useState({
-        
-      })
-      //(string | number)[][]
-    const [data, setData] = useState<(string | number)[][]>([
-        ['Linguagens', 'Quantidade'],
-        
-      ])
-    
-      const getStat = useCallback(async ()=>{
-        const {url, options} = STATS_GET();
-        const response = await fetch(url, options);
-        const json:statsProps[] = await response.json();
-        setStats(json)
-        const total = json.reduce((prev, curr) => prev + (+curr.acessos), 0)
-        setAcessos(total);
-        const result = stats.map((e)=>([e.title ,+e.acessos]));
-        setData([['Linguagens', 'Quantidade'], ...result]);
-        
-    },[stats])
+    const {getStat, acessos, photos, feedData, options, loading} = useContext(userContext)
 
     useEffect(()=>{
         const autoAtt = async () =>{
@@ -42,18 +14,21 @@ export  function Estatistica() {
         autoAtt();
     },[getStat])
 
+    if(loading) return <Loading/>;
     return (
+       
         <Stats>
             <Acess>Acessos: {acessos}</Acess>
+            <Acess>Número de fotos do feed: {photos}</Acess>
             <div style={{display: "flex"}}>
-            {data.length > 1 && <Chart
+            {feedData.length > 1 && <Chart
             width={'500px'}
             height={'300px'}
             chartType="PieChart"
-            data={data}
+            data={feedData}
             options={options}
           /> }
-        </div>  
+         </div>  
         </Stats>
     )
 }

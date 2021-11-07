@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { PHOTO_POST, TOKEN_POST, TOKEN_VALIDATE_POST, USER_GET, USER_POST } from "../src/api";
+import { PHOTO_POST, STATS_GET, TOKEN_POST, TOKEN_VALIDATE_POST, USER_GET, USER_POST } from "../src/api";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router";
 
@@ -23,12 +23,24 @@ interface childrenProps {
   loading: boolean,
   userLoggout: () => void,
   userCreate: (username: formProps, password: formProps, email: formProps) => Promise<void>,
-  postPhoto: (img: imgProps, nome: formProps, peso: formProps, idade: formProps) => Promise<void>
+  postPhoto: (img: imgProps, nome: formProps, peso: formProps, idade: formProps) => Promise<void>,
+  getStat: () => Promise<void>,
+  acessos: number,
+  photos:number,
+  feedData: (string | number)[][],
+  options: {},
 }
 
 interface ProviderProps {
     children: ReactNode;
-  }
+}
+
+  
+interface statsProps {
+    id: number,
+    title: string,
+    acessos: string 
+}
 
 
 
@@ -39,6 +51,14 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
     const [login, setLogin] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    const [stats, setStats] = useState<statsProps[]>([]);
+    const [acessos, setAcessos] = useState(0);
+    const [photos, setPhotos] = useState(0);
+    const [options, setOptions] = useState({})
+    const [feedData, setFeedData] = useState<(string | number)[][]>([
+        ['Linguagens', 'Quantidade'], 
+      ])
     
     const getUser = React.useCallback(async (token: string) => {
       const {url, options} = USER_GET(token);
@@ -55,6 +75,28 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
       window.localStorage.removeItem('token');
       navigate('/login');
     },[navigate])
+    
+    const getStat = React.useCallback(async ()=>{
+      try{
+        setLoading(true);
+        const {url, options} = STATS_GET();
+        const response = await fetch(url, options);
+        if(!response.ok) throw new Error('Erro ao pegar estatisticas.')
+        const json:statsProps[] = await response.json();
+        setStats(json)
+        const total = json.reduce((prev, curr) => prev + (+curr.acessos), 0)
+        setPhotos(json.length)
+        setAcessos(total);
+        const result = stats.map((e)=>([e.title ,+e.acessos]));
+        setFeedData([['Linguagens', 'Quantidade'], ...result]);
+      }catch(err){
+        console.log(err)
+      }finally{
+        setLoading(false);
+      }
+      
+    },[stats])
+
     
 
     useEffect(()=>{
@@ -159,7 +201,7 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
       
     }
 
-    return <userContext.Provider value={{userLogin, data, login, loading, userLoggout, userCreate, postPhoto }}>
+    return <userContext.Provider value={{userLogin, data, login, loading, userLoggout, userCreate, postPhoto, getStat, acessos, photos, feedData, options }}>
             {children}
           </userContext.Provider>
 }

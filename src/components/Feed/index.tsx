@@ -4,6 +4,7 @@ import visualizacao from "../../Assets/visualizacao.svg"
 import { PHOTOS_GET } from "../../api";
 import { Itens, Item } from "./styles";
 import FeedModal from "./FeedModal";
+import Loading from "../Loading";
  interface photoProps{
     id: number,
     author: string,
@@ -22,14 +23,16 @@ import FeedModal from "./FeedModal";
 export default function Feed({page, total, user}: {page:number, total:number, user:number | undefined}) {
     const [feed, setFeed] = useState<photoProps[]>([]);
     const [modal, setModal] = useState({} as photoProps)
+    const [loadingFeed, setLoadingFeed] = useState(false);
 
     const atualizaFeed = useCallback(async () =>{
-    
+        setLoadingFeed(true);
         const body = {page, total, user};  
         const {url, options} = PHOTOS_GET(body);
         const response = await fetch(url, options);
         const json = await response.json();
         setFeed(json);
+        setLoadingFeed(false);
     },[setFeed, page, total, user])
 
     useEffect(()=>{
@@ -46,7 +49,7 @@ export default function Feed({page, total, user}: {page:number, total:number, us
         await atualizaFeed();
         setModal(photo);
     }
-    
+    if(loadingFeed) return <Loading/>
     return ( 
        <>
         {modal.id  && <FeedModal modal={modal} setModal={setModal} atualizaFeed={atualizaFeed} /> }
