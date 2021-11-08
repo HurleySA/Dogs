@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { ModalItem, ModalStyle } from "./styles";
 import {ReactComponent as Enviar} from "../../../Assets/enviar.svg"
 import useForm from "../../../hooks/useForm";
-import { useCallback, useEffect, useState } from "react";
-import { COMMENT_POST, PHOTO_GET } from "../../../api";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { COMMENT_POST, PHOTO_DELETE, PHOTO_GET } from "../../../api";
+import { userContext } from "../../../userContext";
 
 
 interface photoProps{
@@ -46,6 +47,7 @@ interface feedModalProps{
 export default function FeedModal({modal, setModal, atualizaFeed}: feedModalProps) {
     const comentario = useForm('');
     const [coments, setComents] = useState<comentsProps[]>([]);
+    const {data} = useContext(userContext);
     const handleClick = () =>{
         setModal({} as photoProps);
         atualizaFeed();
@@ -76,6 +78,12 @@ export default function FeedModal({modal, setModal, atualizaFeed}: feedModalProp
         }
         ,[loadComents])
 
+    const handleDelete = async () => {
+        const {url, options} = PHOTO_DELETE(modal.id);
+        await fetch(url, options);
+        setModal({} as photoProps);
+        atualizaFeed();
+    }
 
     return (
         <ModalStyle onClick={(e) => {
@@ -89,7 +97,8 @@ export default function FeedModal({modal, setModal, atualizaFeed}: feedModalProp
                 <img className="img" src={modal.src} alt="" />
                 <div className="wrapper">
                     <div className="title">
-                        <Link to="/login">@{modal.author}</Link>
+                        
+                        {data?.username === modal.author ? <button onClick={handleDelete}>Deletar</button>: <Link to="/login">@{modal.author}</Link>}
                         <p>{modal.acessos}</p>
                     </div>
                     <h1>{modal.title}</h1>

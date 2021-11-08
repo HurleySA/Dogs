@@ -5,7 +5,7 @@ import { userContext } from "../../../userContext";
 import Loading from "../../Loading";
 
 export  function Estatistica() {
-    const {getStat, acessos, photos, feedData, options, loading} = useContext(userContext)
+    const {getStat, acessos, photos, feedData, loading} = useContext(userContext)
 
     useEffect(()=>{
         const autoAtt = async () =>{
@@ -26,7 +26,7 @@ export  function Estatistica() {
             height={'300px'}
             chartType="PieChart"
             data={feedData}
-            options={options}
+            options={{}}
           /> }
          </div>  
         </Stats>

@@ -162,9 +162,8 @@ export function STATS_GET() {
     },
   };
 }
-/* 
 
-export function PHOTO_DELETE(id) {
+export function PHOTO_DELETE(id:number) {
   return {
     url: `${API_URL}/api/photo/${id}`,
     options: {
@@ -175,6 +174,9 @@ export function PHOTO_DELETE(id) {
     },
   };
 }
+/* 
+
+
 
 
 

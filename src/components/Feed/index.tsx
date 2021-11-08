@@ -1,10 +1,9 @@
-import { MouseEvent, useCallback, useEffect, useState } from "react"
+import { Dispatch, MouseEvent, SetStateAction, useCallback, useEffect, useState } from "react"
 
 import visualizacao from "../../Assets/visualizacao.svg"
 import { PHOTOS_GET } from "../../api";
 import { Itens, Item } from "./styles";
 import FeedModal from "./FeedModal";
-import Loading from "../Loading";
  interface photoProps{
     id: number,
     author: string,
@@ -18,22 +17,20 @@ import Loading from "../Loading";
 
 }
 
-  
-
-export default function Feed({page, total, user}: {page:number, total:number, user:number | undefined}) {
+export default function Feed({page, total, user, setInfinite}: {page:number, total:number, user:number | undefined, setInfinite:Dispatch<SetStateAction<boolean>>}) {
     const [feed, setFeed] = useState<photoProps[]>([]);
     const [modal, setModal] = useState({} as photoProps)
-    const [loadingFeed, setLoadingFeed] = useState(false);
 
     const atualizaFeed = useCallback(async () =>{
-        setLoadingFeed(true);
         const body = {page, total, user};  
         const {url, options} = PHOTOS_GET(body);
         const response = await fetch(url, options);
         const json = await response.json();
+        if(response && response.ok && json.length < 3){
+            setInfinite(false);
+        }
         setFeed(json);
-        setLoadingFeed(false);
-    },[setFeed, page, total, user])
+    },[setFeed, page, total, user, setInfinite])
 
     useEffect(()=>{
         try{       
@@ -49,11 +46,9 @@ export default function Feed({page, total, user}: {page:number, total:number, us
         await atualizaFeed();
         setModal(photo);
     }
-    if (loadingFeed) return <Loading/>
     return ( 
        <>
         {modal.id  && <FeedModal modal={modal} setModal={setModal} atualizaFeed={atualizaFeed} /> }
-        {feed.length > 0?  
         <Itens>
         {feed.map((photo) =>  {
            return <Item key={photo.id} onDoubleClick={(event) => incrementaCurtida(event,photo)}>  
@@ -61,7 +56,7 @@ export default function Feed({page, total, user}: {page:number, total:number, us
             <span> <img src={visualizacao} alt="" />{photo.acessos}</span> 
            </Item>
         })}
-        </Itens>: <h1>Faça sua primeira postagem. </h1> }
+        </Itens>
        </>
     )
 }

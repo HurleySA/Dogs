@@ -28,7 +28,6 @@ interface childrenProps {
   acessos: number,
   photos:number,
   feedData: (string | number)[][],
-  options: {},
 }
 
 interface ProviderProps {
@@ -55,7 +54,7 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
     const [stats, setStats] = useState<statsProps[]>([]);
     const [acessos, setAcessos] = useState(0);
     const [photos, setPhotos] = useState(0);
-    const [options, setOptions] = useState({})
+
     const [feedData, setFeedData] = useState<(string | number)[][]>([
         ['Linguagens', 'Quantidade'], 
       ])
@@ -201,7 +200,7 @@ export const UserStorage = ({ children }: ProviderProps ): JSX.Element =>{
       
     }
 
-    return <userContext.Provider value={{userLogin, data, login, loading, userLoggout, userCreate, postPhoto, getStat, acessos, photos, feedData, options }}>
+    return <userContext.Provider value={{userLogin, data, login, loading, userLoggout, userCreate, postPhoto, getStat, acessos, photos, feedData }}>
             {children}
           </userContext.Provider>
 }

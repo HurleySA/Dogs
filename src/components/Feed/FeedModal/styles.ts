@@ -12,6 +12,18 @@ export const ModalStyle = styled.div`
     justify-content: center;
     align-items: center;
 
+    button{
+        cursor: pointer;
+        padding: 0rem 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        border: none;
+        border-radius: .4rem;
+        background: #fb1;
+        color: #764701;
+        box-sizing: border-box;
+    }
+
  
 `
 export const ModalItem = styled.div`
@@ -90,13 +102,15 @@ export const ModalItem = styled.div`
         display: flex;
         position: absolute;
         bottom: 10px;
+        overflow-y: auto;
+        word-break: break-word;
     
     }
     .comentarios{
         font-size: 1.2rem;
     }
 
-    .coment svg{
-        background-color: transparent;
+    .coment svg path{
+        background-color: #fb1;
     }
 `
