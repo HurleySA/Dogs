@@ -49,11 +49,11 @@ export default function Feed({page, total, user}: {page:number, total:number, us
         await atualizaFeed();
         setModal(photo);
     }
-    if(loadingFeed) return <Loading/>
+    if (loadingFeed) return <Loading/>
     return ( 
        <>
         {modal.id  && <FeedModal modal={modal} setModal={setModal} atualizaFeed={atualizaFeed} /> }
-        {feed.length > 0 ?  
+        {feed.length > 0?  
         <Itens>
         {feed.map((photo) =>  {
            return <Item key={photo.id} onDoubleClick={(event) => incrementaCurtida(event,photo)}>  

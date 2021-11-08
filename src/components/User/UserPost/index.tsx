@@ -4,6 +4,7 @@ import { ContainerPost } from "./style";
 import { toast } from 'react-toastify';
 import { FormEvent, useContext, useState } from "react";
 import { userContext } from "../../../userContext";
+import Loading from "../../Loading";
 
 interface imgProps {
     preview: string,
@@ -23,7 +24,7 @@ export  function UserPost() {
         setImg({} as imgProps);
   
     }
-    const {postPhoto} = useContext(userContext);
+    const {postPhoto, loading} = useContext(userContext);
     const handleSubmit = async (event: FormEvent) =>{
         event.preventDefault();
         if(!nome.value || !peso.value || !idade.value || !img ){
@@ -50,6 +51,7 @@ export  function UserPost() {
             raw:event.target.files[0],
        }))
     }
+    if(loading) return <Loading/>
     return (
         <ContainerPost>
             <div className="containerPost">

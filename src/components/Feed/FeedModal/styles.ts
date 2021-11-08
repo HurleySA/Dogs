@@ -17,6 +17,7 @@ export const ModalStyle = styled.div`
 export const ModalItem = styled.div`
     display: flex;
     position: relative;
+    height: 650px;
 
     
     .fechar{
