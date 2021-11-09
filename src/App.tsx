@@ -9,6 +9,7 @@ import { GlobalStyle } from "./styles/global";
 import { UserStorage } from "./userContext";
 import { User } from "./components/User";
 import { Footer } from "./components/Footer";
+import { NotFound } from "./components/NotFound";
 
 
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="/login/*" element={<Login/>} />
             <Route path="/conta/*" element={<User/> } />
+            <Route path="*" element={<NotFound/>} />
         </Routes>
         <Footer/>
         <ToastContainer autoClose={2000} /> 

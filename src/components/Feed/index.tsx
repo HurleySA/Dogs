@@ -39,6 +39,9 @@ export default function Feed({page, total, user, setInfinite}: {page:number, tot
         catch(err){
             console.log(err)
         }
+        return () => {
+            setFeed([]);
+        }
         
     },[atualizaFeed])
     

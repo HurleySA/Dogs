@@ -3,6 +3,7 @@ import { useContext } from "react"
 import { Routes, Route, Navigate } from "react-router-dom"
 import { userContext } from "../../userContext"
 import Loading from "../Loading"
+import { NotFound } from "../NotFound"
 import { LoginCreate } from "./LoginCreate"
 import { LoginForm } from "./LoginForm"
 import { LoginPasswordLost } from "./LoginPasswordLost"
@@ -23,6 +24,8 @@ export function Login(){
                 <Route path="/" element={<LoginForm/>} />
                 <Route path="/criar" element={<LoginCreate/>} />
                 <Route path="/redefinir" element={<LoginPasswordLost/>} />
+                <Route path="*" element={<NotFound/>} />
+                
                 
             </Routes>
         </LoginStyle>
