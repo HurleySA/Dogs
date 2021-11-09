@@ -11,25 +11,6 @@ interface bodyProps{
   password: string | number,
 }
 
-/* interface comentsProps{
-  comment_ID: string,
-  comment_agent: string,
-  comment_approved: string,
-  comment_author: string,
-  comment_author_IP: string,
-  comment_author_email: string,
-  comment_author_url: string,
-  comment_content: string,
-  comment_date: string,
-  comment_date_gmt: string,
-  comment_karma: string,
-  comment_parent: string,
-  comment_post_ID: string,
-  comment_type: string,
-  user_id: string,
-
-} */
-
 export function TOKEN_POST(body: tokenBodyProps) {
   return {
     url: API_URL + '/jwt-auth/v1/token',
@@ -93,7 +74,7 @@ export function PHOTO_POST(formData: FormData, token:string) {
   };
 }
 
-export function PASSWORD_LOST(body: {username: string | number}) {
+export function PASSWORD_LOST(body: {login: string, url:string}) {
   return {
     url: API_URL + '/api/password/lost',
     options: {
@@ -174,13 +155,8 @@ export function PHOTO_DELETE(id:number) {
     },
   };
 }
-/* 
 
-
-
-
-
-export function PASSWORD_RESET(body) {
+export function PASSWORD_RESET(body: {login: string, url:string}) {
   return {
     url: API_URL + '/api/password/reset',
     options: {
@@ -192,6 +168,13 @@ export function PASSWORD_RESET(body) {
     },
   };
 }
+/* 
+
+
+
+
+
+
 
 
  */

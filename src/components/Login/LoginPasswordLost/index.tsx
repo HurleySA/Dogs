@@ -17,11 +17,11 @@ export function LoginPasswordLost(){
         if(dado.value === ""){
             toast.error("Digite seu Usuário ou Email.")
         }else{
-            const {url, options} = PASSWORD_LOST({username: dado.value});   
+            const {url, options} = PASSWORD_LOST({login: dado.value.toString(), url: "http://localhost:3000/login/redefinir"});   
             const response = await fetch(url,options)
-            console.log(response)
             const json = await response.json();
-            console.log(json)
+            (json === "Email enviado." ? toast("Email enviado."): toast.error("Usuário não cadastrado"))
+            dado.setValue('')
         }
     }
     
