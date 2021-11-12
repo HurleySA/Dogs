@@ -20,7 +20,6 @@ import FeedModal from "./FeedModal";
 export default function Feed({page, total, user, setInfinite}: {page:number, total:number, user:number | undefined, setInfinite:Dispatch<SetStateAction<boolean>>}) {
     const [feed, setFeed] = useState<photoProps[]>([]);
     const [modal, setModal] = useState({} as photoProps)
-
     const atualizaFeed = useCallback(async () =>{
         const body = {page, total, user};  
         const {url, options} = PHOTOS_GET(body);
@@ -49,6 +48,7 @@ export default function Feed({page, total, user, setInfinite}: {page:number, tot
         await atualizaFeed();
         setModal(photo);
     }
+    
     return ( 
        <>
         {modal.id  && <FeedModal modal={modal} setModal={setModal} atualizaFeed={atualizaFeed} /> }

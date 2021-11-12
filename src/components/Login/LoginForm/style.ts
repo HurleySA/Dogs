@@ -16,6 +16,7 @@ export const ContainerForm = styled.section`
     .wrapper{
         margin-top: 10rem;
         animation: slidein .3s;
+        width: 400px;
     }
 
     .wrapper h1{
@@ -107,7 +108,19 @@ export const ContainerForm = styled.section`
     @media (max-width: 1200px){
        
         &{
-            grid-template-columns:40px 1fr; 
+            grid-template-columns:30px 1fr 1fr; 
+        }
+
+        .back{
+            width: 450px;
+            display: flex;
+            align-self: center;
+        }
+    }
+    @media (max-width: 900px){
+       
+        &{
+            grid-template-columns:40px 1fr 40px; 
             justify-content: center;
         }
         .wrapper{
@@ -177,13 +190,18 @@ export const InputForm = styled.input`
 
     @media (max-width: 1260px){
         &{
-            padding: 1rem 10rem 1rem 1rem;
+            padding: 1rem 15rem 1rem 1rem;
         }
     }
 
     @media (max-width: 1200px){
         &{
-            padding: 1rem 20rem 1rem 1rem;
+            padding: 1rem 10rem 1rem 1rem;
+        }
+    }
+    @media (max-width: 900px){
+        &{
+            padding: 1rem 10rem 1rem 1rem;
         }
     }
 

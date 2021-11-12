@@ -22,6 +22,12 @@ export const ModalStyle = styled.div`
         background: #fb1;
         color: #764701;
         box-sizing: border-box;
+        
+    }
+
+    button:disabled{
+        background: #eee;
+        cursor: not-allowed;
     }
 
  
@@ -31,6 +37,19 @@ export const ModalItem = styled.div`
     position: relative;
     height: 650px;
 
+    
+    @media (max-width: 900px){
+        flex-direction: column;
+
+        img{
+            max-width: 350px;
+        }   
+
+        .wrapper{
+            overflow-y: visible;
+            width: 100%;
+        }
+    }
     
     .fechar{
         width: 40px;
@@ -44,6 +63,9 @@ export const ModalItem = styled.div`
         border: 1px solid #000;
         font-size: 1.5rem;
         font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .fechar:hover{
@@ -64,6 +86,7 @@ export const ModalItem = styled.div`
         padding: 1rem 2rem 1rem 2rem;
         width: 20rem;
         position: relative;
+        
     }
 
     .title{
@@ -71,6 +94,7 @@ export const ModalItem = styled.div`
         justify-content: space-between;
         color:#333;
         font-size: 1.2rem;
+
     }
 
     .wrapper h1{

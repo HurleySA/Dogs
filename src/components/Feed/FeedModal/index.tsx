@@ -70,7 +70,6 @@ export default function FeedModal({modal, setModal, atualizaFeed}: feedModalProp
         const response = await fetch(url, options);
         const json = await response.json();
         setComents(json.comments)
-        console.log(...json.comments)
         }, [modal.id])
 
     useEffect(() => {     
@@ -117,9 +116,11 @@ export default function FeedModal({modal, setModal, atualizaFeed}: feedModalProp
                          value={comentario.value}
                          onChange={({target}) => comentario.onChange(target.value)}
                         />
-                        <button onClick={createComment}>
+                        {data ? <button onClick={createComment}>
                             <Enviar/>
-                        </button>
+                        </button>: <button onClick={createComment} disabled>
+                            <Enviar/>
+                        </button>}
                     </div>
                 </div>
             </ModalItem>

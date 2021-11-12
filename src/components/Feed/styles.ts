@@ -5,6 +5,12 @@ export const Itens = styled.ul`
         grid-template-columns: 1fr 1fr 1fr;
         gap: 10px;
         margin-bottom: 10px;
+
+        @media (max-width: 900px){
+            &{
+                grid-template-columns: 1fr;
+            }
+        }
      
    
 
@@ -23,6 +29,11 @@ export const Itens = styled.ul`
      &:nth-child(2){
         grid-column: 2/4;
         grid-row: span 2;
+    }
+    @media (max-width: 900px){
+        &:nth-child(2){
+            grid-column: 1;
+        }
     }
 
     & img {
